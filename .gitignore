@@ -4,6 +4,7 @@ target/
 **/*.rs.bk
 Cargo.lock
 .cargo/
+/*data/
 
 # IDE files
 .playwright-mcp/
@@ -37,9 +38,6 @@ Thumbs.db
 *.tar
 *.tar.gz
 *.tgz
-
-# DB files
-*data
 
 # Images
 *.png
