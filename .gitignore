@@ -1,10 +1,17 @@
-# Rust files
-/target/
-target/
-**/*.rs.bk
-Cargo.lock
-.cargo/
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.lock
+*.egg*
+*cache
+.venv/
+venv/
+ENV/
 /*data/
+/*build/
+*.pixi
 
 # IDE files
 .playwright-mcp/
