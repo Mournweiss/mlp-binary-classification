@@ -301,6 +301,11 @@ download_dataset() {
         error "Neither curl nor wget found. Cannot download dataset"
     fi
 
+    if [[ -f "data/train.csv" && -f "data/test.csv" ]]; then
+        success "Dataset download completed successfully"
+        return 0
+    fi
+
     error "Dataset download failed"
 }
 
