@@ -19,7 +19,7 @@ env_file=".env"
 # Runtime variables
 DOWNLOAD_DATASET=false
 FORCE_DOWNLOAD=false
-TRAIN_MODE="all"
+EXEC_MODE="train"
 
 # Parses command-line arguments and sets global variables for orchestrator and options.
 #
@@ -41,7 +41,7 @@ parse_args() {
                 ;;
             --mode|-m)
                 if [[ -n "$2" && "$2" != "--"* ]]; then
-                    TRAIN_MODE="$2"
+                    EXEC_MODE="$2"
                     shift 2
                 else
                     error "Missing mode argument for --mode flag"
@@ -67,12 +67,12 @@ Usage: $0 [OPTIONS]
 Options:
   --download, -d    Download dataset if missing
   --force, -f       Force download even if dataset exists
-  --mode, -m <MODE> Execution mode: train, evaluate, predict, all
+  --mode, -m <MODE> Execution mode: train, evaluate, predict
   --help, -h        Show this help message
 
 Examples:
   $0 --download
-  $0 --mode all --download
+  $0 --mode train --download
   $0
 EOF
 }
@@ -355,50 +355,32 @@ validate_dataset() {
 # Runs the Python script with the specified mode and arguments.
 #
 # Parameters:
-# - $1: string - execution mode (train, evaluate, predict, all)
+# - $1: string - execution mode (train, evaluate, predict)
 # - $@: array - additional arguments to pass to the Python script
 #
 # Returns:
 # - None
 run_project() {
-    local mode="${TRAIN_MODE:-all}"
+    local mode="${EXEC_MODE:-train}"
 
     info "============================================"
     info "  Titanic MLP — Execution Mode: ${mode}"
     info "============================================"
 
-    # Set PyTorch device environment variable if specified
-    if [[ -n "${DEVICE:-auto}" ]]; then
-        export TORCH_DEVICE="${DEVICE}"
-    fi
-
-    # Set CUDA config if specified
-    if [[ -n "${PYTORCH_CUDA_ALLOC_CONF:-}" ]]; then
-        export PYTORCH_CUDA_ALLOC_CONF
-    fi
-
-    # Set cuDNN config if specified
-    if [[ -n "${CUDNN_BENCHMARK:-}" ]]; then
-        export CUDNN_BENCHMARK
-    fi
-    if [[ -n "${CUDNN_DETERMINISTIC:-}" ]]; then
-        export CUDNN_DETERMINISTIC
-    fi
-
-    # Set data loader config if specified
-    if [[ -n "${NUM_WORKERS:-0}" ]]; then
-        export NUM_WORKERS
-    fi
-    if [[ -n "${PIN_MEMORY:-true}" ]]; then
-        export PIN_MEMORY
-    fi
-
-    # Set log level if specified
-    if [[ -n "${LOG_LEVEL:-INFO}" ]]; then
-        export LOG_LEVEL
-    fi
-
-    pixi run --environment default python -m src.main --mode "$mode"
+    case "$mode" in
+        train)
+            pixi run --environment default train
+            ;;
+        evaluate)
+            pixi run --environment default train-eval
+            ;;
+        predict)
+            pixi run --environment default train-predict
+            ;;
+        *)
+            error "Unknown mode: $mode"
+            ;;
+    esac
 }
 
 # Checks and installs/updates project dependencies.
