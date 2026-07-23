@@ -9,9 +9,13 @@ __pycache__/
 .venv/
 venv/
 ENV/
-/*data/
 /*build/
 *.pixi
+
+# Project files
+/*data/
+/*checkpoints/
+submission.csv
 
 # IDE files
 .playwright-mcp/
