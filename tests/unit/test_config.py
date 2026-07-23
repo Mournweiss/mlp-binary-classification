@@ -2,8 +2,6 @@
 
 from pathlib import Path
 
-import pytest
-
 from mlp_binary_classification.config import (
     Config,
     DataConfig,

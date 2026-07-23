@@ -1,6 +1,5 @@
 """Unit tests for MLP model."""
 
-import pytest
 import torch
 
 from mlp_binary_classification.model import MLP
@@ -27,8 +26,6 @@ class TestMLPInit:
 
     def test_zero_input_size(self) -> None:
         """Test model creation with zero input size edge case."""
-        # PyTorch 2.13+ does not raise RuntimeError for Linear(0, ...)
-        # It initializes a no-op model instead
         model = MLP(input_size=0)
         assert model is not None
 

@@ -4,7 +4,6 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
-import torch
 
 from mlp_binary_classification.config import Config, DataConfig, ModelConfig, OutputConfig
 from mlp_binary_classification.predict import generate_submission

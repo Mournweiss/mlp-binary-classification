@@ -1,6 +1,5 @@
 """Unit tests for the main CLI entry point."""
 
-import subprocess
 import sys
 from unittest.mock import patch
 
