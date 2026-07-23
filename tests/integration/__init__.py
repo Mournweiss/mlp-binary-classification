@@ -1,1 +1,1 @@
-"""Integration tests for mlp_binary_classification."""
+"""Integration tests for the Titanic MLP pipeline."""

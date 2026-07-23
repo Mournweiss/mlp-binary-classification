@@ -4,6 +4,7 @@
 # Test Orchestration Script
 # =============================================================================
 # This script handles test execution with configurable options:
+#   - Smoke tests
 #   - Unit tests
 #   - Integration tests
 #   - Coverage reporting
@@ -13,11 +14,12 @@
 #   ./test.sh [COMMAND] [OPTIONS]
 #
 # Commands:
-#   all         Run all tests (default)
-#   unit        Run unit tests only
-#   integration Run integration tests only
-#   coverage    Run tests with coverage report
-#   help        Show this help message
+#   all           Run all tests (default)
+#   smoke         Run smoke tests only
+#   unit          Run unit tests only
+#   integration   Run integration tests only
+#   coverage      Run tests with coverage report
+#   help          Show this help message
 #
 # Options:
 #   --path <PATH>           Run tests in specific directory
@@ -29,6 +31,7 @@
 # Examples:
 #   ./test.sh all
 #   ./test.sh unit --verbose
+#   ./test.sh smoke
 #   ./test.sh coverage --parallel
 #   ./test.sh integration --path tests/integration
 # =============================================================================
@@ -54,6 +57,7 @@ TEST_PATTERN="test_*.py"
 VERBOSE=false
 PARALLEL=false
 COVERAGE=false
+SMOKE=false
 EXTRA_ARGS=()
 
 # Shows help message for the test script.
@@ -71,6 +75,7 @@ Commands:
   all           Run all tests (default)
   unit          Run unit tests only
   integration   Run integration tests only
+  smoke         Run smoke tests only
   coverage      Run tests with coverage report
   help          Show this help message
 
@@ -84,6 +89,7 @@ Options:
 Examples:
   ./test.sh all
   ./test.sh unit --verbose
+  ./test.sh smoke
   ./test.sh coverage --parallel
   ./test.sh integration --path tests/integration
 EOF
@@ -99,7 +105,7 @@ EOF
 parse_args() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            all|unit|integration|coverage|help)
+            all|unit|integration|smoke|coverage|help)
                 TEST_MODE="$1"
                 shift
                 ;;
@@ -172,8 +178,11 @@ discover_tests() {
         integration)
             test_dirs+=("tests/integration")
             ;;
+        smoke)
+            test_dirs+=("tests/smoke")
+            ;;
         all)
-            test_dirs+=("tests/unit" "tests/integration")
+            test_dirs+=("tests/unit" "tests/integration" "tests/smoke")
             ;;
     esac
 
@@ -182,7 +191,9 @@ discover_tests() {
         test_dirs=("$TEST_PATH")
     fi
 
-    echo "${test_dirs[@]}"
+    for d in "${test_dirs[@]}"; do
+        echo "$d"
+    done
 }
 
 # Runs tests with configured options (verbose, parallel, coverage).
@@ -214,6 +225,11 @@ run_tests() {
 
     # Build pytest command
     local cmd="pixi run --environment dev python -m pytest"
+
+    # Add smoke marker if smoke mode
+    if [[ "$TEST_MODE" == "smoke" ]]; then
+        cmd+=" -m smoke"
+    fi
 
     # Add verbose flag
     if $VERBOSE; then
