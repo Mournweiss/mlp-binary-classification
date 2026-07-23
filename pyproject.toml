@@ -36,9 +36,9 @@ dev = { features = ["dev", "cuda"], solve-group = "cuda" }
 cpu = { features = ["cpu"], solve-group = "cpu" }
 
 [tool.pixi.tasks]
-train = "python -m src.main --mode all"
-train-eval = "python -m src.main --mode evaluate"
-train-predict = "python -m src.main --mode predict"
+train = "python -m mlp_binary_classification.main --mode all"
+train-eval = "python -m mlp_binary_classification.main --mode evaluate"
+train-predict = "python -m mlp_binary_classification.main --mode predict"
 test = "python -m pytest"
 test-unit = "python -m pytest tests/unit"
 test-integration = "python -m pytest tests/integration"

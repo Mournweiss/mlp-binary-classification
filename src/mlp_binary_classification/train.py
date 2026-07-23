@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
-from .config import Config, ModelConfig
+from .config import Config
 from .data_loader import load_data, split_train_val
 from .model import MLP
 from .preprocessing import preprocess_titanic
@@ -140,7 +140,7 @@ def train_model(config: Config) -> dict:
             batch_y = batch_y.to(device)
 
             optimizer.zero_grad()
-            outputs = model(batch_X).squeeze(-1)
+            outputs = model(batch_X)
             loss = criterion(outputs, batch_y)
             loss.backward()
 
@@ -223,7 +223,7 @@ def evaluate_model(
             batch_X = batch_X.to(device)
             batch_y = batch_y.to(device)
 
-            outputs = model(batch_X).squeeze(-1)
+            outputs = model(batch_X)
             loss = criterion(outputs, batch_y)
             total_loss += loss.item()
 
