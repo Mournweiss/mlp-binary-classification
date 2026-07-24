@@ -2,7 +2,7 @@
 
 # MLP Binary Classification (Titanic)
 
-Multi-Layer Perceptron implementation (MLP) for binary classification on the Titanic dataset.
+Multi-Layer Perceptron implementation (MLP) for binary classification on the Titanic dataset
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-555555?style=for-the-badge&logo=PyTorch&logoWidth=40)](https://pytorch.org/)
 [![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=NumPy&logoWidth=40)](https://numpy.org/)
@@ -104,6 +104,15 @@ flowchart TB
     # Run type checking
     pixi run typecheck
     ```
+
+### Arguments:
+
+```text
+--download, -d    Download dataset if missing
+--force, -f       Force download even if dataset exists
+--mode, -m <MODE> Execution mode: train (default), evaluate, predict
+--help, -h        Show help message
+```
 
 ### Pixi Environments
 
