@@ -16,7 +16,7 @@ from sklearn.metrics import (
 from .config import Config, ModelConfig
 from .data_loader import load_data, split_train_val
 from .model import MLP
-from .preprocessing import preprocess_titanic
+from .preprocessing import preprocess_test, preprocess_titanic
 from .train import get_device
 
 
@@ -119,29 +119,3 @@ def evaluate_on_test(
         predictions = (proba >= 0.5).astype(int)
 
     return predictions, proba
-
-
-def preprocess_test(
-    test_df: pd.DataFrame,
-    train_metadata: dict,
-    config: ModelConfig,
-) -> np.ndarray:
-    """Preprocess test set using training metadata.
-
-    Args:
-        test_df: Test DataFrame.
-        train_metadata: Metadata from training preprocessing.
-        config: Model configuration.
-
-    Returns:
-        Preprocessed feature array.
-    """
-    from .preprocessing import preprocess_titanic
-
-    features, _ = preprocess_titanic(test_df, config, is_test=True)
-
-    scaler = train_metadata["scaler"]
-    num_original = train_metadata["num_original_features"]
-    features[:, :num_original] = scaler.transform(features[:, :num_original])
-
-    return features

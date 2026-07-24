@@ -8,6 +8,7 @@ from mlp_binary_classification.config import ModelConfig
 from mlp_binary_classification.preprocessing import (
     extract_deck,
     extract_title,
+    preprocess_test,
     preprocess_titanic,
 )
 
@@ -128,3 +129,66 @@ class TestPreprocessTitanic:
         title_mapping = {"Mr": 0, "Miss": 1, "Mrs": 2, "Master": 3, "Other": 4}
         df["Title_encoded"] = df["Title"].map(title_mapping).fillna(4).astype(int)
         assert set(df["Title_encoded"].unique()).issubset({0, 1, 2, 3, 4})
+
+
+class TestPreprocessTest:
+    """Tests for preprocess_test function."""
+
+    @pytest.fixture
+    def train_metadata(self, sample_train_df: pd.DataFrame) -> dict:
+        """Compute train metadata for testing."""
+        model_config = ModelConfig()
+        _, metadata = preprocess_titanic(sample_train_df, model_config, is_test=False)
+        return metadata
+
+    def test_preprocess_test_returns_numpy_array(self, sample_test_df: pd.DataFrame, train_metadata: dict) -> None:
+        """Test that preprocess_test returns a numpy array."""
+        model_config = ModelConfig()
+        result = preprocess_test(sample_test_df, train_metadata, model_config)
+
+        assert isinstance(result, np.ndarray)
+        assert result.dtype == np.float32
+
+    def test_preprocess_test_output_shape(self, sample_test_df: pd.DataFrame, train_metadata: dict) -> None:
+        """Test that preprocess_test output has correct shape."""
+        model_config = ModelConfig()
+        result = preprocess_test(sample_test_df, train_metadata, model_config)
+
+        assert result.shape[0] == len(sample_test_df)
+        assert result.shape[1] > 0
+
+    def test_preprocess_test_no_nan_values(self, sample_test_df: pd.DataFrame, train_metadata: dict) -> None:
+        """Test that preprocess_test output contains no NaN values."""
+        model_config = ModelConfig()
+        result = preprocess_test(sample_test_df, train_metadata, model_config)
+
+        assert not np.any(np.isnan(result))
+
+    def test_preprocess_test_no_inf_values(self, sample_test_df: pd.DataFrame, train_metadata: dict) -> None:
+        """Test that preprocess_test output contains no Inf values."""
+        model_config = ModelConfig()
+        result = preprocess_test(sample_test_df, train_metadata, model_config)
+
+        assert not np.any(np.isinf(result))
+
+    def test_preprocess_test_uses_train_scaler(
+        self, sample_train_df: pd.DataFrame, sample_test_df: pd.DataFrame
+    ) -> None:
+        """Test that preprocess_test uses the scaler fitted on training data."""
+        model_config = ModelConfig()
+        _, train_metadata = preprocess_titanic(sample_train_df, model_config, is_test=False)
+        _, test_metadata = preprocess_titanic(sample_test_df, model_config, is_test=True)
+
+        # Training metadata should have a fitted scaler
+        assert "scaler" in train_metadata
+        assert "feature_names" in train_metadata
+
+        # Test metadata scaler should be a fresh unfitted scaler
+        assert "scaler" in test_metadata
+
+        # The scalers should be different (train scaler fitted on train data)
+        train_scaled = train_metadata["scaler"].mean_
+        test_scaled = test_metadata["scaler"].mean_
+
+        # They should not be identical (train was fitted on different data)
+        assert not np.allclose(train_scaled, test_scaled, equal_nan=True)
