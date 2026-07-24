@@ -338,4 +338,23 @@ Apache 2.0 License.
 
 ---
 
+10. Titanic Dataset
+    Repository: https://www.kaggle.com/c/titanic
+    Mirror:     https://github.com/ashishpatel26/Titanic-Machine-Learning-from-Disaster
+    Copyright:  Copyright (c) Kaggle, Inc. (https://www.kaggle.com)
+    License:    ODC-by 1.0 (Open Data Commons Attribution License v1.0)
+
+    This project uses the Titanic dataset from the Kaggle competition
+    "Titanic: Machine Learning from Disaster" for training, evaluation,
+    and prediction of passenger survival based on machine learning models.
+
+    ODC-by 1.0 License Summary:
+    You are free to share and adapt the dataset for any purpose, including
+    commercially, as long as you give attribution to Kaggle and the original
+    data contributors.
+
+    Full License: https://opendatacommons.org/licenses/by/1-0/
+
+---
+
 END OF THIRD-PARTY COMPONENTS
