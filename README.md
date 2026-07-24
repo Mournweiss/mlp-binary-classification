@@ -80,6 +80,15 @@ flowchart TB
     ./build.sh
     ```
 
+    ### Arguments:
+
+    ```text
+    --download, -d    Download dataset if missing
+    --force, -f       Force download even if dataset exists
+    --mode, -m <MODE> Execution mode: train (default), evaluate, predict
+    --help, -h        Show help message
+    ```
+
     Or pixi tasks:
 
     ```bash
@@ -105,22 +114,13 @@ flowchart TB
     pixi run typecheck
     ```
 
-### Arguments:
+    ### Pixi Environments
 
-```text
---download, -d    Download dataset if missing
---force, -f       Force download even if dataset exists
---mode, -m <MODE> Execution mode: train (default), evaluate, predict
---help, -h        Show help message
-```
-
-### Pixi Environments
-
-| Environment | Description                      |
-| ----------- | -------------------------------- |
-| `default`   | Base dependencies + CUDA PyTorch |
-| `dev`       | Base + dev tools + CUDA PyTorch  |
-| `cpu`       | Base dependencies + CPU PyTorch  |
+    | Environment | Description                      |
+    | ----------- | -------------------------------- |
+    | `default`   | Base dependencies + CUDA PyTorch |
+    | `dev`       | Base + dev tools + CUDA PyTorch  |
+    | `cpu`       | Base dependencies + CPU PyTorch  |
 
 ## Environment Variables
 
@@ -195,3 +195,7 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 | **pytest**          | MIT                                                        | [github.com/pytest-dev/pytest](https://github.com/pytest-dev/pytest)                                                           |
 | **Black**           | MIT                                                        | [github.com/psf/black](https://github.com/psf/black)                                                                           |
 | **Titanic Dataset** | [ODC-by 1.0](https://opendatacommons.org/licenses/by/1-0/) | [Kaggle](https://www.kaggle.com/c/titanic) · [GitHub](https://github.com/ashishpatel26/Titanic-Machine-Learning-from-Disaster) |
+
+```
+
+```
