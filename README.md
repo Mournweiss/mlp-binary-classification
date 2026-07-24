@@ -2,12 +2,12 @@
 
 # MLP Binary Classification (Titanic)
 
-A Python project implementing a Multi-Layer Perceptron (MLP) for binary classification on the Titanic dataset, featuring data preprocessing, model training, evaluation, and prediction pipelines.
+Multi-Layer Perceptron implementation (MLP) for binary classification on the Titanic dataset.
 
-[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoWidth=40)](https://pytorch.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-555555?style=for-the-badge&logo=PyTorch&logoWidth=40)](https://pytorch.org/)
 [![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=NumPy&logoWidth=40)](https://numpy.org/)
 [![pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoWidth=40)](https://pandas.pydata.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoWidth=40)](https://scikit-learn.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-555555?style=for-the-badge&logo=scikit-learn&logoWidth=40)](https://scikit-learn.org/)
 [![Python](https://img.shields.io/badge/Python-3.14+-3776AB?style=for-the-badge&logo=Python&logoWidth=40)](https://www.python.org/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-green.svg?style=for-the-badge&logoWidth=40)](LICENSE)
 [![Dataset: Kaggle Titanic](https://img.shields.io/badge/Dataset-Kaggle%20Titanic-FF6B00?style=for-the-badge&logo=kaggle&logoWidth=40)](https://www.kaggle.com/c/titanic)
