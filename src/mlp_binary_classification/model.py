@@ -14,7 +14,7 @@ class MLP(nn.Module):
     def __init__(
         self,
         input_size: int,
-        hidden_sizes: list[int] = None,
+        hidden_sizes: list[int] | None = None,
         dropout: float = 0.3,
     ) -> None:
         """Initialize MLP model.
