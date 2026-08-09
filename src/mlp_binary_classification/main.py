@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Maxim Selin (Mournweiss) <info@mournweiss.ru>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """Main entry point for the Titanic MLP classification project."""
 
 import argparse

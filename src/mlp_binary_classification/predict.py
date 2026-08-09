@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Maxim Selin (Mournweiss) <info@mournweiss.ru>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """Prediction and submission generation."""
 
 import pandas as pd

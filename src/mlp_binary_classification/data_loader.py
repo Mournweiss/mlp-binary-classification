@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Maxim Selin (Mournweiss) <info@mournweiss.ru>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """Data loading utilities for the Titanic dataset."""
 
 from pathlib import Path

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Maxim Selin (Mournweiss) <info@mournweiss.ru>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """Configuration for the Titanic MLP classification project."""
 
 from dataclasses import dataclass, field

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Maxim Selin (Mournweiss) <info@mournweiss.ru>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """Unit tests for the main CLI entry point."""
 
 import sys
